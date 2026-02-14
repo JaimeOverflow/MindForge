@@ -1,3 +1,4 @@
+from helpers.exceptions import MenuInvalidInputError, MenuOutOfBoundsError
 from helpers.screen import clean_screen
 from helpers.options import OPTION_QUIT
 
@@ -22,11 +23,18 @@ def main():
 def get_menu_choice():
     while True:
         try:
-            menu_choice = int(input("Enter a number:\n"))
+            try:
+                menu_choice = int(input("Enter a number:\n"))
+            except ValueError:
+                raise MenuInvalidInputError("Input has to be a valid number.")
+
+            if menu_choice < OPTION_QUIT or menu_choice > len(OPTIONS):
+                raise MenuOutOfBoundsError("Menu choice out of bounds.")
+
             return menu_choice
-        except Exception:
+        except (MenuInvalidInputError, MenuOutOfBoundsError) as error:
             clean_screen()
-            print("Invalid answer. It has to be a valid choice\n")
+            print(f"Error. {error}\n")
             show_main_menu()
 
 
