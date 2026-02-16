@@ -12,9 +12,6 @@ OPTIONS = [
 ]
 
 
-# OPTIONS = [{"text": "Multiplications", "menu": multiplications_menu.show_game_menu}]
-
-
 def run_menu(menu_options):
     clean_screen()
     while True:
@@ -60,5 +57,8 @@ def show_game_menu(menu_options, menu_choice: int) -> None:
     menu_item = menu_options[index]
 
     has_menu = "menu" in menu_item
+    has_game = "game" in menu_item
     if has_menu:
         run_menu(menu_item["menu"])
+    elif has_game:
+        menu_item["game"]()
