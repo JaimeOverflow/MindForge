@@ -1,1 +1,0 @@
-OPTION_QUIT = 0
